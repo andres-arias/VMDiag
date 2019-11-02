@@ -15,5 +15,6 @@ Besides Python 3.7, VMDiag requires the following Python packages:
 
 * [Paramiko](http://www.paramiko.org/): For SSH access to the remote 
 servers.
+* [Click](https://click.palletsprojects.com) Command-line parser.
 * [pytest](https://docs.pytest.org) For running the unit tests.
 * [Sphinx](https://www.sphinx-doc.org/) For building the documentation.
