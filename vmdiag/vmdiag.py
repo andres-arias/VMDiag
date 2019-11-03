@@ -47,7 +47,7 @@ def retrieve_info(ip_address, username, key):
 @click.command()
 @click.argument('ip', required=True, nargs=-1)
 @click.option('--user', required=True, multiple=True, help='SSH username for the given IP addresses')
-@click.option('--key', multiple=True, type=click.Path(), help='SSH Keys for the given IP addresses')
+@click.option('--key', required=True, multiple=True, type=click.Path(), help='SSH Keys for the given IP addresses')
 @click.option('--output', help='File where the output will be dumped.')
 def main(ip, user, key, output):
     ip_string = ""
