@@ -1,0 +1,403 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>vmdiag package &#8212; VMDiag 1 documentation</title>
+    <link rel="stylesheet" href="_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script type="text/javascript" src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">VMDiag 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">vmdiag package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-vmdiag.parser">vmdiag.parser module</a></li>
+<li><a class="reference internal" href="#module-vmdiag.server">vmdiag.server module</a></li>
+<li><a class="reference internal" href="#module-vmdiag.vmdiag">vmdiag.vmdiag module</a></li>
+<li><a class="reference internal" href="#module-vmdiag">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/vmdiag.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="vmdiag-package">
+<h1>vmdiag package<a class="headerlink" href="#vmdiag-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-vmdiag.parser">
+<span id="vmdiag-parser-module"></span><h2>vmdiag.parser module<a class="headerlink" href="#module-vmdiag.parser" title="Permalink to this headline">¶</a></h2>
+<p>Functions for parsing and validating the provided IP addresses.</p>
+<ul class="simple">
+<li><p>Author: Andrés Arias</p></li>
+<li><p>Email: <a class="reference external" href="mailto:andres&#46;arias12&#37;&#52;&#48;gmail&#46;com">andres<span>&#46;</span>arias12<span>&#64;</span>gmail<span>&#46;</span>com</a></p></li>
+</ul>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal notranslate"><span class="pre">validate_ip()</span></code> and <code class="docutils literal notranslate"><span class="pre">validate_ip_octets()</span></code> are auxiliary functions, they
+are called when <code class="docutils literal notranslate"><span class="pre">parse_ip()</span></code> is called. If any of those auxiliary functions
+fail, <code class="docutils literal notranslate"><span class="pre">parse_ip()</span></code> will raise and exception.</p>
+<dl class="function">
+<dt id="vmdiag.parser.parse_ip">
+<code class="sig-prename descclassname">vmdiag.parser.</code><code class="sig-name descname">parse_ip</code><span class="sig-paren">(</span><em class="sig-param">ip_string</em><span class="sig-paren">)</span><a class="headerlink" href="#vmdiag.parser.parse_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list with properly formatted IP addresses from a single
+IP address returned by Click.</p>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>The function will raise an exception if the given string is ill-formed, has
+addresses with an erroneous format (<em>not XXX.XXX.XXX.XXX</em>) or if the IP address
+has an octet with a value greater than 255.</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ip_string</strong> (<em>string</em>) – String containing the received IP addresses. The given IP string should
+follow the format: <code class="docutils literal notranslate"><span class="pre">XXX.XXX.XXX.XXX,XXX.XXX.XXX.XXX,...</span></code></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing every received IP address as a string.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Exception</strong> – Invalid IP format. Should be XXX.XXX.XXX.XXX</p></li>
+<li><p><strong>Exception</strong> – Invalid IP octet. Maximum value should be 255</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="vmdiag.parser.validate_ip">
+<code class="sig-prename descclassname">vmdiag.parser.</code><code class="sig-name descname">validate_ip</code><span class="sig-paren">(</span><em class="sig-param">ip_list</em><span class="sig-paren">)</span><a class="headerlink" href="#vmdiag.parser.validate_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates that every given IP address conforms with the format
+XXX.XXX.XXX.XXX</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ip_list</strong> (<em>list</em>) – List containing the received IP addresses.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A boolean indicated whether every provided IP address follows the
+correct format or not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="vmdiag.parser.validate_ip_octets">
+<code class="sig-prename descclassname">vmdiag.parser.</code><code class="sig-name descname">validate_ip_octets</code><span class="sig-paren">(</span><em class="sig-param">ip_list</em><span class="sig-paren">)</span><a class="headerlink" href="#vmdiag.parser.validate_ip_octets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Validates that every octet in the given IP list is between the 0-255 range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ip_list</strong> (<em>list</em>) – List containing the received IP addresses.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A boolean indicated whether every provided IP address is between the
+correct range or not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-vmdiag.server">
+<span id="vmdiag-server-module"></span><h2>vmdiag.server module<a class="headerlink" href="#module-vmdiag.server" title="Permalink to this headline">¶</a></h2>
+<p>Class for connecting to remote servers via SSH and get their
+consumption information.</p>
+<ul class="simple">
+<li><p>Author: Andrés Arias</p></li>
+<li><p>Email: <a class="reference external" href="mailto:andres&#46;arias12&#37;&#52;&#48;gmail&#46;com">andres<span>&#46;</span>arias12<span>&#64;</span>gmail<span>&#46;</span>com</a></p></li>
+</ul>
+<dl class="class">
+<dt id="vmdiag.server.Server">
+<em class="property">class </em><code class="sig-prename descclassname">vmdiag.server.</code><code class="sig-name descname">Server</code><span class="sig-paren">(</span><em class="sig-param">ip_address</em>, <em class="sig-param">username</em>, <em class="sig-param">creds</em>, <em class="sig-param">timeout=60</em><span class="sig-paren">)</span><a class="headerlink" href="#vmdiag.server.Server" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Connects to a remote server via SSH. Can use password or PEM keys for
+authentication.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip_address</strong> (<em>string</em>) – IPv4 address of the remote server.</p></li>
+<li><p><strong>username</strong> (<em>string</em>) – Username to log into via SSH.</p></li>
+<li><p><strong>creds</strong> (<em>string</em>) – PEM key path to use for SSH authentication.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) – Time in seconds to wait before giving up trying to connected.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="vmdiag.server.Server.ip_address">
+<code class="sig-name descname">ip_address</code><a class="headerlink" href="#vmdiag.server.Server.ip_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>IPv4 address of the remote server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="vmdiag.server.Server.username">
+<code class="sig-name descname">username</code><a class="headerlink" href="#vmdiag.server.Server.username" title="Permalink to this definition">¶</a></dt>
+<dd><p>Username to log into via SSH.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="vmdiag.server.Server.credentials">
+<code class="sig-name descname">credentials</code><a class="headerlink" href="#vmdiag.server.Server.credentials" title="Permalink to this definition">¶</a></dt>
+<dd><p>PEM key path to use for SSH authentication.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="vmdiag.server.Server.timeout">
+<code class="sig-name descname">timeout</code><a class="headerlink" href="#vmdiag.server.Server.timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Time in seconds to wait before giving up trying to connected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="vmdiag.server.Server.connected">
+<code class="sig-name descname">connected</code><a class="headerlink" href="#vmdiag.server.Server.connected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicates if a connection is currently established or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="vmdiag.server.Server.connect">
+<code class="sig-name descname">connect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vmdiag.server.Server.connect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Establishes a connection via SSH to the remote server using
+the parameters provided when initializing the Server object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>Exception</strong> – If connection times out or server not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt>
+<code class="sig-name descname">connected</code><em class="property"> = False</em></dt>
+<dd><p>Indicates if a connection is currently established or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="vmdiag.server.Server.disconnect">
+<code class="sig-name descname">disconnect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vmdiag.server.Server.disconnect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Establishes a connection via SSH to the remote server using
+the parameters provided when initializing the Server object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="vmdiag.server.Server.get_remaining_cap">
+<code class="sig-name descname">get_remaining_cap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vmdiag.server.Server.get_remaining_cap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries the server for the current CPU and memory usage and returns
+the remaining CPU percentage and memory in kB available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary where the <code class="docutils literal notranslate"><span class="pre">cpu</span></code> key indicates the remaining CPU
+percentage available and the <code class="docutils literal notranslate"><span class="pre">memory_kb</span></code> key indicates the
+remaining memory in kB.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="vmdiag.server.Server.get_running_proccesses">
+<code class="sig-name descname">get_running_proccesses</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vmdiag.server.Server.get_running_proccesses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries the server for the currently running processes (one interval) and
+returns a list with the processes names.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list containing strings with the name of every running processes
+on the server.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="vmdiag.server.Server.get_top_cpu">
+<code class="sig-name descname">get_top_cpu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vmdiag.server.Server.get_top_cpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries the server for the currently running processes (one interval) and
+returns a dictionary containing the top 3 processes consuming CPU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary containing the top 3 processes consuming CPU, where the
+keys are de process names and the value the consumed CPU percentage.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="vmdiag.server.Server.get_top_mem">
+<code class="sig-name descname">get_top_mem</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#vmdiag.server.Server.get_top_mem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Queries the server for the currently running processes (one interval) and
+returns a dictionary containing the top 3 processes consuming memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary containing the top 3 processes consuming memory, where the
+keys are de process names and the value the consumed memory percentage.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-vmdiag.vmdiag">
+<span id="vmdiag-vmdiag-module"></span><h2>vmdiag.vmdiag module<a class="headerlink" href="#module-vmdiag.vmdiag" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>Connects via SSH to Linux servers to retrieve usage data:</dt><dd><ul class="simple">
+<li><p>Currently running processes (one interval).</p></li>
+<li><p>Top 3 processes consuming CPU.</p></li>
+<li><p>Top 3 processes consuming memory.</p></li>
+<li><p>Remaining memory in kB and CPU percentage available.</p></li>
+</ul>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>Author: Andrés Arias</p></li>
+<li><p>Email: <a class="reference external" href="mailto:andres&#46;arias12&#37;&#52;&#48;gmail&#46;com">andres<span>&#46;</span>arias12<span>&#64;</span>gmail<span>&#46;</span>com</a></p></li>
+</ul>
+<dl class="function">
+<dt id="vmdiag.vmdiag.retrieve_info">
+<code class="sig-prename descclassname">vmdiag.vmdiag.</code><code class="sig-name descname">retrieve_info</code><span class="sig-paren">(</span><em class="sig-param">ip_address</em>, <em class="sig-param">username</em>, <em class="sig-param">key</em><span class="sig-paren">)</span><a class="headerlink" href="#vmdiag.vmdiag.retrieve_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a server instance and retrieves the usage info.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ip_address</strong> (<em>string</em>) – IPv4 of the target server. Format: <code class="docutils literal notranslate"><span class="pre">XXX.XXX.XXX.XXX</span></code></p></li>
+<li><p><strong>username</strong> (<em>string</em>) – Username to log via SSH to target server.</p></li>
+<li><p><strong>key</strong> (<em>string</em>) – File path of the private key to log via SSH to target server.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with the resulting usage data.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dictionary</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-vmdiag">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-vmdiag" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">VMDiag 1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Andrés Arias.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.1.
+    </div>
+  </body>
+</html>
