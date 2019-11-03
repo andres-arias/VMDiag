@@ -14,6 +14,8 @@ Tool developed using Python 3.7
 
 VMDiag was developed by [Andrés Arias](https://andres-arias.github.io).
 
+Generated documentation can be found [here](https://andres-arias.github.io/VMDiag/).
+
 ##### Table of Contents  
 [Requirements](#requirements)  
 [Installing](#installing)  
