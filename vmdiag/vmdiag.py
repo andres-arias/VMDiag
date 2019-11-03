@@ -1,18 +1,25 @@
+import click
 import vmdiag
 import parser
-import click
+import server
 
 @click.command()
-# @click.option('--count', default=1, help='Number of loops')
-@click.argument('ips', nargs=-1)
-def main(ips):
-    ips_string = ""
-    for i in ips:
-        ips_string += i
+@click.argument('ip', required=True, nargs=-1)
+@click.option('--user', required=True, multiple=True, help='SSH username for the given IP addresses')
+@click.option('--password', multiple=True, help='SSH password for the given IP addresses')
+@click.option('--key', multiple=True, type=click.Path(), help='SSH Keys for the given IP addresses')
+def main(ip, user, password, key):
+    ip_string = ""
+    for i in ip:
+        ip_string += i
     try:
-        ip_list = parser.parse_ip(ips_string)
-        for ip in ip_list:
-            click.echo(ip)
+        ip_list = parser.parse_ip(ip_string)
+        if len(ip_list) != len(user):
+            click.echo("Error: Must provide usernames for every IP address.")
+            exit()
+        else:
+            host = server.Server(ip_list[0], user[0], key[0], True)
+            host.connect()
     except Exception as error:
         click.echo(error)
 
