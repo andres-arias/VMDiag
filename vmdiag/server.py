@@ -111,7 +111,15 @@ class Server:
 
         """
         stdin, stdout, stderr = self.client.exec_command('ps axco command,pcpu --sort=-pcpu | head -n 4')
-        return self.__clean_stdout(stdout)
+        output_lines = stdout.readlines()
+        line_count = len(output_lines)
+        # Sometimes the command only returns 2 processes instead of 3, re-running
+        # the command fixes it:
+        while line_count != 4:
+            stdin, stdout, stderr = self.client.exec_command('ps axco command,pcpu --sort=-pcpu | head -n 4')
+            output_lines = stdout.readlines()
+            line_count = len(output_lines)
+        return self.__clean_stdout(output_lines)
 
 
     def get_top_mem(self):
@@ -127,14 +135,14 @@ class Server:
 
         """
         stdin, stdout, stderr = self.client.exec_command('ps axco command,pmem --sort=-pmem | head -n 4')
-        return self.__clean_stdout(stdout)
+        output_lines = stdout.readlines()
+        return self.__clean_stdout(output_lines)
 
 
-    def __clean_stdout(self, stdout):
+    def __clean_stdout(self, output_lines):
         process_dict = {}
-        process_list_raw = stdout.readlines()
-        process_list_raw.pop(0)
-        for proc in process_list_raw:
+        output_lines.pop(0)
+        for proc in output_lines:
             split_list = proc.split(' ')
             clean_list = []
             for i in split_list:
