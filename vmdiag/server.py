@@ -73,27 +73,21 @@ class Server:
             If connection times out or server not found.
         """
         if self.with_keys:
-            try:
-                self.client.connect(hostname=self.ip_address,
-                                    username=self.username,
-                                    pkey=self.credentials,
-                                    timeout=self.timeout)
-                click.echo("Succesfully logged into address %s" % self.ip_address)
-                self.connected = True
-            except Exception as error:
-                click.echo(error)
+            self.client.connect(hostname=self.ip_address,
+                                username=self.username,
+                                pkey=self.credentials,
+                                timeout=self.timeout)
+            click.echo("Succesfully logged into address %s" % self.ip_address)
+            self.connected = True
         else:
-            try:
-                self.client.connect(hostname=self.ip_address,
-                                    username=self.username,
-                                    password=self.credentials,
-                                    timeout=self.timeout)
-                click.echo("Succesfully logged into address %s" % self.ip_address)
-                self.connected = True
-            except Exception as error:
-                click.echo(error)
+            self.client.connect(hostname=self.ip_address,
+                                username=self.username,
+                                password=self.credentials,
+                                timeout=self.timeout)
+            click.echo("Succesfully logged into address %s" % self.ip_address)
+            self.connected = True
 
-    def desconnect(self):
+    def disconnect(self):
         """
         Establishes a connection via SSH to the remote server using
         the parameters provided when initializing the Server object.
@@ -164,7 +158,7 @@ class Server:
             for i in split_list:
                 if i != '':
                     clean_list.append(i.rstrip())
-            process_dict[clean_list[0]] = clean_list[1]
+            process_dict[clean_list[0]] = float(clean_list[1])
         return process_dict
 
 
@@ -192,6 +186,6 @@ class Server:
         for i in split_list:
             if i != '':
                 clean_list.append(i.rstrip())
-        result_dict['memory_kb'] = clean_list[1]
+        result_dict['memory_kb'] = int(clean_list[1])
         return result_dict
 

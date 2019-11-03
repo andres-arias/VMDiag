@@ -22,7 +22,7 @@ def main(ip, user, password, key):
             exit()
         else:
             stats_dict = {}
-            host = server.Server(ip_list[0], user[0], key[0], True)
+            host = server.Server(ip_list[0], user[0], key[0], True, 20)
             host.connect()
             stats_dict['running_processes'] = host.get_running_proccesses()
             stats_dict['top_3_cpu_consumption'] = host.get_top_cpu()
@@ -34,7 +34,7 @@ def main(ip, user, password, key):
             with open('data.json', 'w') as f:
                 json.dump(server_json, f)
     except Exception as error:
-        click.echo(error)
+        click.echo("Error, could not connect. Reason: %s" % error)
 
 
 if __name__ == '__main__':
