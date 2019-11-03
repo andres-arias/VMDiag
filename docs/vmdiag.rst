@@ -12,6 +12,14 @@ vmdiag.parser module
    :undoc-members:
    :show-inheritance:
 
+vmdiag.server module
+--------------------
+
+.. automodule:: vmdiag.server
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 vmdiag.vmdiag module
 --------------------
 

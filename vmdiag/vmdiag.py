@@ -1,8 +1,10 @@
 import click
 import json
-# import vmdiag
-import parser
-import server
+from vmdiag import parser, server
+# import vmdiag.parser
+# import vmdiag.server
+
+
 
 @click.command()
 @click.argument('ip', required=True, nargs=-1)
@@ -22,9 +24,9 @@ def main(ip, user, password, key):
             stats_dict = {}
             host = server.Server(ip_list[0], user[0], key[0], True)
             host.connect()
-            stats_dict['processes'] = host.get_running_proccesses()
-            stats_dict['top_cpu'] = host.get_top_cpu()
-            stats_dict['top_memory'] = host.get_top_mem()
+            stats_dict['running_processes'] = host.get_running_proccesses()
+            stats_dict['top_3_cpu_consumption'] = host.get_top_cpu()
+            stats_dict['top_3_memory_consumption'] = host.get_top_mem()
             stats_dict['remaining_capacity'] = host.get_remaining_cap()
             server_json = json.dumps(stats_dict, indent=4)
             click.echo(server_json)
