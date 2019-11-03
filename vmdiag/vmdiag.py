@@ -1,5 +1,6 @@
 import click
-import vmdiag
+import json
+# import vmdiag
 import parser
 import server
 
@@ -18,8 +19,18 @@ def main(ip, user, password, key):
             click.echo("Error: Must provide usernames for every IP address.")
             exit()
         else:
+            stats_dict = {}
             host = server.Server(ip_list[0], user[0], key[0], True)
             host.connect()
+            stats_dict['processes'] = host.get_running_proccesses()
+            stats_dict['top_cpu'] = host.get_top_cpu()
+            stats_dict['top_memory'] = host.get_top_mem()
+            stats_dict['remaining_capacity'] = host.get_remaining_cap()
+            server_json = json.dumps(stats_dict, indent=4)
+            click.echo(server_json)
+
+            with open('data.json', 'w') as f:
+                json.dump(server_json, f)
     except Exception as error:
         click.echo(error)
 
