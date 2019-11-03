@@ -14,7 +14,14 @@ Tool developed using Python 3.7
 
 VMDiag was developed by [Andrés Arias](https://andres-arias.github.io).
 
+##### Table of Contents  
+[Requirements](#requirements)  
+[Installing](#installing)  
+[Usage](#usage)  
+[Running tests](#tests)  
 
+
+<a name="requirements"/>
 ## Requirements
 
 Besides Python 3.7, VMDiag requires the following Python packages:
@@ -30,6 +37,7 @@ For a development environment, additional packages are required:
 * [Sphinx](https://www.sphinx-doc.org/): For building the documentation.
 
 
+<a name="installing"/>
 ## Installing
 
 To install the package, just clone the project and run pip as shown:
@@ -40,6 +48,7 @@ cd VMDiag
 pip3 install -e .
 ```
 
+<a name="development"/>
 ### Development environment
 
 Clone the repository:
@@ -73,6 +82,7 @@ make html
 
 The resulting documentation will be found on `docs/_build/html`
 
+<a name="usage"/>
 ## Usage
 
 ```
@@ -137,6 +147,7 @@ vmdiag 54.191.214.144,35.166.60.105 --user ubuntu --user debian --key ~/Download
 The resulting JSON will be shown on the console and will be stored on a file provided by the 
 `--output` option (if no output provided, it will be stored by default on `./server_data.json`).
 
+<a name="tests"/>
 ## Running tests
 
 * In order to run tests, three testing VM are currently instantiated on AWS EC2. The testing
@@ -156,4 +167,10 @@ root directory by running the command:
 python -m pytest -v # For verbose output
 python -m pytest    # For quiet output
 ```
+
+The IPs of the testing VM are:
+
+* 54.191.214.144
+* 35.166.60.105
+* 54.200.130.35
 
