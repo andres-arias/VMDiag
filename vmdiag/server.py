@@ -21,11 +21,7 @@ class Server:
     username: string
         Username to log into via SSH.
     creds: string
-        Password or PEM key to use for SSH authentication. If ``with_keys`` is
-        set to True, you must provide the path of the PEM file for the corresponding
-        key.
-    with_keys: bool
-        Whether to use PEM key or password for SSH authentication.
+        PEM key path to use for SSH authentication.
     timeout: int
         Time in seconds to wait before giving up trying to connected.
 
@@ -36,9 +32,7 @@ class Server:
     username: string
         Username to log into via SSH.
     credentials: string
-        Password or PEM key to use for SSH authentication.
-    with_keys: bool
-        Whether to use PEM key or password for SSH authentication.
+        PEM key path to use for SSH authentication.
     timeout: int
         Time in seconds to wait before giving up trying to connected.
     connected: bool
@@ -50,17 +44,13 @@ class Server:
     bool: Indicates if a connection is currently established or not.
     """
 
-    def __init__(self, ip_address, username, creds, with_keys=False, timeout=60):
+    def __init__(self, ip_address, username, creds, timeout=60):
         self.ip_address = ip_address
         self.username = username
         self.client = paramiko.SSHClient()
-        self.with_keys = with_keys
         self.timeout = timeout
-        if with_keys:
-            self.credentials = paramiko.RSAKey.from_private_key_file(creds)
-            self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        else:
-            self.credentials = creds
+        self.credentials = paramiko.RSAKey.from_private_key_file(creds)
+        self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     def connect(self):
         """
@@ -72,20 +62,12 @@ class Server:
         Exception
             If connection times out or server not found.
         """
-        if self.with_keys:
-            self.client.connect(hostname=self.ip_address,
-                                username=self.username,
-                                pkey=self.credentials,
-                                timeout=self.timeout)
-            click.echo("Succesfully logged into address %s" % self.ip_address)
-            self.connected = True
-        else:
-            self.client.connect(hostname=self.ip_address,
-                                username=self.username,
-                                password=self.credentials,
-                                timeout=self.timeout)
-            click.echo("Succesfully logged into address %s" % self.ip_address)
-            self.connected = True
+        self.client.connect(hostname=self.ip_address,
+                            username=self.username,
+                            pkey=self.credentials,
+                            timeout=self.timeout)
+        click.echo("Succesfully logged into address %s" % self.ip_address)
+        self.connected = True
 
     def disconnect(self):
         """

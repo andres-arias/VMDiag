@@ -23,7 +23,6 @@ def provide_client():
     client = server.Server('54.191.214.144',
                          'ubuntu',
                          './certs/TestDevKey.pem',
-                         True,
                          10)
     client.connect()
     return client
@@ -52,7 +51,6 @@ def test_connection_keys(input_parameters, expected):
         client = server.Server(input_parameters[0],
                              input_parameters[1],
                              input_parameters[2],
-                             True,
                              10)
         assert client.connect() is None
         assert client.disconnect() is None
